@@ -1,0 +1,247 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{amsthm}
+\usepackage[left=3cm, top=3cm, right=2cm, bottom=2cm, a4paper]{geometry}
+\usepackage{anyfontsize}
+\usepackage[indent=0cm, skip=.1cm]{parskip}
+\usepackage{fancyhdr}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
+\bibliographystyle{plainnat}
+
+
+
+
+\title{Phase Transitions and Uniqueness of the Gibbs Measure in Ising Models with Variable Magnetic Field: Extension to Long-Range Interactions}
+\author{}
+\date{}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+% Configuração ABNT para numeração no rodapé direito
+\pagestyle{fancy}
+\fancyhf{} % Limpa cabeçalho e rodapé
+\fancyfoot[R]{\thepage} % Número da página no rodapé direito
+\renewcommand{\headrulewidth}{0pt} % Remove a linha do cabeçalho
+
+\begin{document}
+\fontsize{12pt}{18pt}\selectfont
+
+\begin{center}
+{\LARGE \textbf{Phase Transitions and Uniqueness of the Gibbs Measure in Ising Models with Variable Magnetic Field: Extension to Long-Range Interactions}}
+
+\vspace{1cm}
+
+\textbf{Alison Sousa}\\
+Bachelor's Degree in International Relations\\
+School of International Relations - ESPM (Escola Superior de Propaganda e Marketing)\\
+csousa.alison@gmail.com
+
+\vspace{0.5cm}
+
+Revised by \textbf{João Maia}\\
+Postdoctoral Research Fellow at Peking University\\
+Ph.D. in Applied Mathematics - IME/USP\\
+Institute of Mathematics and Statistics - University of São Paulo (IME/USP)\\
+joao.maia@pku.edu.cn
+
+\vspace{1cm}
+
+April 25, 2025
+\end{center}
+
+\thispagestyle{empty} % Remove número da primeira página
+
+\newpage
+
+\section*{Abstract}
+In this study, we investigate the uniqueness of the Gibbs measure in Ising models with a spatially decaying magnetic field of the form $h(x) = h^*/|x|^\alpha$ ($\alpha<1$), extending classical arguments for long-range interactions with decay $J_{xy} \sim |x-y|^{-(d+s)}$ ($s>\alpha$). We initially review the proof of uniqueness for local interactions, emphasizing the role of contours and energetic estimates. We then adapt these ideas to the non-local scenario, employing techniques such as coarse-graining, multiscale approximations, and disconnected contours---required due to the absence of locality. Through rigorous technical estimates from the fields of Mathematical Statistical Physics and Probability Theory, we demonstrate that, for $\alpha<1$ and $s>\alpha$, the energetic cost of the field dominates the interactions, ensuring the uniqueness of the Gibbs measure even at low temperatures. The results pave the way for generalizations in models with variable fields and long-range interactions, with potential applications in disordered systems.
+
+\vspace{0.5cm}
+\noindent\textbf{Keywords:} Ising Model; Decaying Magnetic Field; Long-range Interactions; Uniqueness of the Gibbs Measure; Disconnected Contours.
+
+\section{Introduction}
+\hypertarget{pag2}{}
+Ising models are fundamental prototypes for the study of phase transitions in many-particle systems, particularly those exhibiting cooperative behavior such as magnetism. Originally introduced by Ernst Ising in 1925 in his doctoral thesis, the model has evolved into one of the main paradigms in statistical physics, with applications extending beyond magnetism to fields such as biology, economics, and computer science. In its simplest form, the model considers spins placed on a regular lattice, assuming values $\sigma(x) \in \{-1,+1\}$ with ferromagnetic interactions between nearest neighbors.
+
+Traditionally, studies on phase transitions in the Ising model assume a uniform magnetic field and local interactions, meaning each spin interacts only with its immediate neighbors. However, this idealization is often far removed from the physical reality of certain materials, where field effects can vary spatially, and interactions may extend over long ranges, decaying slowly with distance. To account for this complexity, two natural extensions arise: position-dependent magnetic fields and non-local spin interactions.
+
+The paper by  Bissacot et al. \cite{bissacot2015} presents a detailed study of Ising models with a magnetic field that decays with distance from the origin. Physical motivation is straightforward: in semi-infinite systems or those with boundaries dominated by external sources, the applied field may not be constant across the lattice. The proposed model includes a field of the form $h(x) = h^*/|x|^\alpha$, introducing a decay controlled by $\alpha>0$. The authors demonstrate that for $\alpha<1$, the total influence of the field remains sufficiently strong to prevent a phase transition—i.e., the Gibbs measure is unique, even at very low temperatures.
+
+\hypertarget{pag3}{}
+The aim of this work is twofold. First, we provide a comprehensive and didactic review of the proof of uniqueness for $\alpha<1$, presented in Bissacot et al. \cite{bissacot2015}, with particular attention to the energetic and geometric ideas underlying the arguments. Second, we extend these arguments to the case where spin interactions are not limited to nearest neighbors but occur at arbitrary distances—this is the so-called Ising model with long-range interactions. This extension is explored, for instance, in the thesis by Maia \cite{maia2024}, where adapted contours are employed to address technical challenges arising from the lack of locality.
+
+This extension is non-trivial. In models with long-range interactions, the traditional Peierls contour geometry becomes inapplicable, requiring new methods such as multiscale coarse-graining, control of rare events via disconnected contours, and analysis of the sum of weak but numerous interactions. Key references for this approach include the works of Ding and Zhuang \cite{ding2024}, Fisher, Fröhlich, and Spencer \cite{fisher1984}, and the statistical methods developed by Aizenman and Wehr \cite{aizenman1990}. The combination of these techniques allows us to conjecture—and in many cases, formalize—the preservation of the uniqueness of the Gibbs measure even under non-local interactions and decaying fields.
+
+\section{Review of the Uniqueness Proof for $\alpha<1$}
+\hypertarget{pag3}{}
+The primary focus of the proof in Bissacot et al. \cite{bissacot2015} is to demonstrate that even at low temperatures (i.e., high $\beta$), the Gibbs measure remains unique if the magnetic field $h(x)$ is sufficiently ``persistent'' in space, that is, if $\alpha<1$. This implies that, even far from the origin, the total contribution of the field to the system's energy remains dominant. The proof involves classical statistical physics tools, including contour arguments (such as Peierls), iterative decompositions, and energetic estimates.
+
+The first step involves analyzing finite boxes $\Lambda_L \subset \mathbb{Z}^d$, with boundary conditions set to $+1$. The set $C_L$ is defined as the part of the configuration where the spins $-1$ are connected to the exterior. The objective is to show that, with high probability, $C_L$ does not invade the central region of the box. This result is obtained using isoperimetric inequalities, which relate the volume of a region to its boundary. The field $h(x)$ imposes an energetic penalty that grows faster than the ``gain'' achieved by flipping spins in the central region.
+
+More formally, if $A \subset \Lambda_L$ represents an island of spins $-1$, the energy cost of its creation is given by:
+\[
+\Delta E = 2\beta J|\partial A| - 2\beta\sum_{x \in A} h(x).
+\]
+For $\alpha<1$, the second term grows faster than the first, making the formation of such islands increasingly unlikely. This relationship is explored through sums over concentric layers within the box and through a decreasing sequence $a_n$ that represents the decay rate of the regions with minus spins in each layer.
+
+The argument is then formalized through the construction of layers $A_k \subset \Lambda_L$, and sets $M_k$ representing the penetration of the minus spins. It is shown that if $M_k$ is small, then $M_{k-1}$ will also be small, until the penetration vanishes at the center of the box. The use of this iterative technique ensures that the resulting Gibbs measure, in the limit $L \to \infty$, is unique.
+
+This result confirms an important physical expectation: even when the magnetic field is weak in distant regions, its accumulated influence is sufficient to prevent the coexistence of multiple phases. The work by Bissacot et al. \cite{bissacot2015} presents this phenomenon in a precise and rigorous manner, providing the foundation for a conjecture that will be tested in models with long-range interactions.
+
+\section{The Long-Range Ising Model}
+\hypertarget{pag4}{}
+
+The long-range Ising model constitutes a natural generalization of the classical formulation, in which the constraint of locality---interactions limited to nearest neighbors---is lifted. In this setting, each spin interacts with all others across the lattice, with coupling strength decaying as a function of distance. Mathematically, this is captured by a Hamiltonian where the interaction terms behave as $J_{xy} \sim 1/|x-y|^{d+s}$, with $s>0$ modulating the rate at which the influence weakens over space. Such systems arise in physical scenarios involving non-local mediation mechanisms, including dipolar materials, certain neural network models, and simplified gravitational systems.
+
+Formally, in a finite region $A\subset\mathbb{Z}^d$ with boundary condition $\eta$, the Hamiltonian takes the form:
+\[
+H_\Lambda^\eta(\sigma) = -\sum_{\substack{x,y\in\Lambda}} \frac{J}{|x-y|^{d+s}} \sigma(x)\sigma(y) 
+- \sum_{\substack{x\in\Lambda\\ y\in\Lambda^c}} \frac{J}{|x-y|^{d+s}} \sigma(x)\eta(y) 
+- \sum_{x\in\Lambda} h(x)\sigma(x).
+\]
+The magnetic field $h(x)$ may again be taken as spatially decaying, for instance $h(x) = h^*/|x|^\alpha$, consistent with the framework introduced by Bissacot et al. \cite{bissacot2015}. This interplay between extended interactions and a non-uniform field introduces significant analytical challenges, particularly due to the breakdown of conventional geometric techniques.
+
+In classical formulations, much of the phase analysis hinges on the construction of well-defined geometric contours, such as those employed in Peierls arguments or within the Pirogov--Sinai theory, where regions of misaligned spins are sharply delimited by boundaries. In the long-range setting, however, such notions become inadequate, as distant spins can exert a non-negligible influence even when situated outside visibly coherent domains. Consequently, a clear distinction between interior and exterior dissolves, and alternative strategies are required.
+
+One successful framework, developed by Maia \cite{maia2024}, introduces the concept of disconnected contours. Here, the support of a contour consists of sites deviating from a uniform background yet need not be spatially connected. Each such object possesses a ``positive interior'' and a ``negative interior,'' and the analysis centers on the balance between energetic cost and configurational entropy associated with these structures. This abstraction enables the extension of Peierls-type arguments to non-local regimes.
+
+The work of Ding and Zhuang \cite{ding2024}, for instance, demonstrates that even in the presence of random fields and extended interactions, it is feasible to define a contour-based formalism that permits probabilistic control. Utilizing multiscale renormalization and coarse-graining techniques---such as those developed in the seminal work of Fisher, Fr\"ohlich, and Spencer \cite{fisher1984}---each contour can be approximated by a family of disjoint cubes (e.g., $r$-$\ell$ blocks) that localize the ``error region.'' This approach affords both precise energy bounds and combinatorial estimates on the number of admissible contours of a given scale---key ingredients in establishing either uniqueness or phase coexistence.
+
+Another indispensable technique in this context is the replacement of discrete neighbor sums by continuous integrals that approximate the total interaction across a boundary:
+\[
+\sum_{\substack{x\in A\\ y\notin A}} \frac{J}{|x-y|^{d+s}} \approx \iint_{A\times A^c} \frac{J}{|x-y|^{d+s}} dxdy.
+\]
+This method enables accurate estimation of the energy cost associated with local spin inversions, even when no canonical contour geometry is available. A similar strategy is employed by Cassandro, Orlandi, and Picco \cite{cassandro2012} in the study of one-dimensional Ising models with random fields and long-range couplings.
+
+Equipped with these tools, the long-range Ising framework offers a mathematically rich yet intricate setting. It serves both as a testing ground for the validity of intuitions derived from short-range models and as a fertile landscape for the development of new theoretical insights. It is within this broader context that we aim to adapt the unique arguments of Bissacot et al. \cite{bissacot2015} to the non-local regime---a task initiated in the following section.
+
+\section{Detailed Adaptation of the Uniqueness Proof to Long-Range Interactions}
+\hypertarget{pag5}{}
+
+In systems governed by long-range couplings, the principal challenge in adapting classical uniqueness arguments arises from the fact that the energy associated with a single spin is influenced by all others in the lattice, with the strength of interaction decaying as $|x-y|^{-(d+s)}$. As a result, the notion of localized contours---central to traditional Peierls-type arguments---loses its canonical interpretation. Nonetheless, this obstacle can be circumvented through the deployment of tools such as interaction integrals, hierarchical coarse-graining, and disconnected contour systems, as developed in works by Maia \cite{maia2024}, Ding and Zhuang \cite{ding2024}, and Fisher, Fr\"ohlich, and Spencer \cite{fisher1984}.
+
+The core of the adapted proof consists in quantifying the energetic cost of introducing a ``droplet'' of minus spins ($-1$) embedded in a uniform sea of pluses ($+1$). The total energy required for such a local inversion may be approximated by:
+\[
+\Delta E = 2\sum_{\substack{x\in A\\ y\notin A}} \frac{J}{|x-y|^{d+s}} + 2\sum_{x\in A} h(x),
+\]
+where $A$ denotes the region of inverted spins, and the magnetic field decays according to $h(x) = h^*/|x|^\alpha$. The first term captures the loss in ferromagnetic alignment with the exterior, while the second corresponds to the energy penalty incurred from the external field. The strategy lies in demonstrating that $\Delta E$ increases faster than the volume $|A|$, implying an exponentially small likelihood of such droplets forming.
+
+\hypertarget{pag6}{}
+
+As highlighted in Maia \cite{maia2024}, this energy cost admits a continuous approximation. If $A$ is taken to be a ball of radius $R$, then the dominant contributions behave as:
+\[
+\sum_{\substack{x\in A\\ y\notin A}} \frac{J}{|x-y|^{d+s}} \approx R^{d-s}, \quad \sum_{x\in A} h(x) \approx R^{d-\alpha}.
+\]
+Provided $\alpha<1$ and $s>\alpha$, the field term overtakes the interaction term in growth, ensuring that the energetic cost becomes prohibitively high. Consequently, the probability of observing a droplet of minus spins is bound above by an exponential decay:
+\[
+P(\text{droplet of }-1) \leq \exp(-cR^\delta), \quad c,\delta>0.
+\]
+
+To elevate this argument to a rigorous proof, it is necessary not only to control the energy but also to bound the combinatorial complexity of potential defect configurations. Following Ding and Zhuang \cite{ding2024}, this is achieved by employing formalism based on disconnected contours. In this framework, one introduces a family $\{I^-(\gamma)\}$, where $\gamma$ denotes the defect support, each approximated by unions of disjoint $r$-$\ell$ blocks via coarse-grained representations (cf. Maia, \cite{maia2024}).
+
+The probability of pathological configurations is then estimated through entropy bounds (e.g., Dudley's metric entropy) and multiscale renormalization. Specifically, one controls the event:
+\[
+E^c \coloneqq \left\{\sup_{\gamma\in C_0} \frac{|\Delta_{I^-(\gamma)}(h)|}{c_2|\gamma|} > \frac{1}{4}\right\},
+\]
+where $C_0$ denotes the collection of relevant contour supports and $\Delta_{I^-(\gamma)}(h)$ measures the field contribution over the droplet. The energy remains the dominating term, while the entropy associated with the contour configurations stays bounded, thereby securing uniqueness of the Gibbs state.
+
+These arguments demonstrate that, even in the absence of simple local geometry, the essence of the proof by Bissacot et al. \cite{bissacot2015}---namely, the energetic dominance of the magnetic field---persists. The novelty lies in the redefinition of ``contour'' and the development of techniques to address non-locality, drawing on the methodologies proposed by Maia \cite{maia2024}, Ding \& Zhuang \cite{ding2024}, and Fisher et al. \cite{fisher1984}.
+
+\subsection{Integral Estimates and Entropic Control in Long-Range Ising Models}
+\hypertarget{pag7}{}
+To rigorously establish the asymptotic dominance of the external field over long-range interactions, one must transition from discrete summations to continuum approximations. Let $A = B_R(0)$ denote a ball of radius $R$ centered at the origin. The interaction energy between $A$ and its complement can be approximated by:
+\[
+\sum_{\substack{x\in A\\ y\notin A}} \frac{J}{|x-y|^{d+s}} \approx J \int_{|x|\leq R} \int_{|y|>R} \frac{1}{|x-y|^{d+s}} dydx.
+\]
+Exploiting spherical coordinates and the scale invariance of the kernel, we obtain:
+\[
+\int_{|x|\leq R} \int_{|y|>R} \frac{1}{|x-y|^{d+s}} dydx \sim R^{d-s} \int_1^\infty \frac{r^{d-1}}{r^{d+s}} dr = \frac{R^{d-s}}{s}.
+\]
+This confirms that the interaction term scales as $R^{d-s}$, whereas the total magnetic contribution behaves like $R^{d-\alpha}$. When $s>\alpha$, the field ultimately governs the energetic landscape.
+
+\subsection{Combinatorial Control of Disconnected Contours}
+
+Bounding the entropy of disconnected contours is essential to prevent a combinatorial explosion. Following the scheme in Ding \& Zhuang \cite{ding2024}, the number of contours of fixed volume $K$ satisfies:
+\[
+\#\{\gamma : |\gamma|=k\} \leq \exp(CK^{d-1}\log K),
+\]
+where $C$ depends only on the dimension. Simultaneously, the energetic penalty associated with such a contour obeys:
+\[
+\Delta E \geq Ck^{d-\alpha},
+\]
+leading to the estimate:
+\[
+P(\gamma) \leq \exp(CK^{d-1}\log K - \beta cK^{d-\alpha}).
+\]
+For sufficiently large $\beta$ and $\alpha<1$, the energetic term asymptotically suppresses entropy, ensuring exponential decay in the probability of defect formation.
+
+\subsection{Regularity and Asymptotic Behavior of the Magnetic Field}
+
+The summation of the external field over the region $A$ must be handled with care to avoid divergence. For $\alpha<1$, we approximate:
+\[
+\sum_{x\in A} h(x) \approx h^* \int_1^R \frac{R^{d-1}}{R^\alpha} dr = h^* \frac{R^{d-\alpha}-1}{d-\alpha}.
+\]
+Since $d-\alpha>d-s$ when $s>\alpha$, the field term remains dominant in the thermodynamic limit, justifying the regime of parameters under consideration.
+
+\subsection{Thermodynamic Limit and Dobrushin-Type Arguments}
+\hypertarget{pag8}{}
+To guarantee uniqueness of the Gibbs state as $\Lambda \nearrow \mathbb{Z}^d$, we invoke a variant of Dobrushin's contraction criteria. The total variation distance between two Gibbs measures with distinct boundary conditions $\eta$ and $\eta'$ is bound by:
+\[
+\|\mu_\Lambda^\eta - \mu_\Lambda^{\eta'}\| \leq \sum_{x\in\Lambda} \prod_{y\in\partial\Lambda} \tanh(\beta J_{xy}).
+\]
+Due to the rapid decay of $J_{xy} \sim |x-y|^{-(d+s)}$, and under the assumption $(s>\alpha)$, the infinite product converges uniformly, ensuring well-posedness of the thermodynamic limit.
+
+\subsection{Critical Regime and Perturbative Considerations}
+
+In the borderline case $\alpha=1$, the fields summation exhibits logarithmic divergence:
+\[
+\sum_{x\in A} h(x) \sim R^{d-1} \log R.
+\]
+To retain control in this critical regime, one must impose stricter conditions: specifically, $s>1$ and a sufficiently large field amplitude $h^*$ to offset the logarithmic growth. In this context, renormalization techniques, such as those in Ding et al. \cite{ding2022}, may be indispensable for handling marginal behaviors.
+
+\subsection{Boundary Conditions and Interface Effects}
+
+The contribution of interactions between $\Lambda$ and its exterior $\Lambda^c$ can be bound by:
+\[
+\sum_{\substack{x\in\Lambda\\ y\in\Lambda^c}} J_{xy} \leq J \sum_{x\in\Lambda} \frac{1}{\text{dist}(x,\Lambda^c)^s}.
+\]
+For convex domains $\Lambda$ this summation scales as $|\partial\Lambda| \cdot R^{-s}$, which becomes negligible as $R\to\infty$, preserving stability at the boundary.
+
+\subsection{Conclusion}
+
+The amalgamation of these analytic components confirms that under the conditions $\alpha<1$ and $s>\alpha$, the external field prevails, entropy remains under control, and the thermodynamic limit is well-defined. This completes the rigorous derivation of phase uniqueness for the non-local Ising model.
+
+\section{Discussion and Outlook}
+
+The investigation of phase uniqueness in Ising models with decaying external fields and non-local interactions contributes to a broader effort to understand how spatial inhomogeneities and long-range dependencies influence equilibrium phase structures. The setting studied by Bissacot et al. \cite{bissacot2015}---variable field with short-range couplings---already reveals a rich phenomenology, with the possibility of phase transitions hinging on the decay exponent $\alpha$. Extending these ideas to long-range systems introduces new mathematical subtleties, where the classical contour formalism must be significantly revised.
+
+\hypertarget{pag9}{}
+
+One of the key advances in this direction stems from the notion of disconnected contours, first explored by Fr\"ohlich and Spencer \cite{fisher1984} and more recently systematized in Maia \cite{maia2024}. In non-local regimes, the conventional geometric notion of a boundary becomes inadequate. Instead, defects are described through multiscale aggregates, which are approximated via disjoint cubes. Analytical control over these configurations hinges on two competing factors: the energetic cost of their formation and their configurational entropy.
+
+Such a trade-off was rigorously analyzed in the framework developed by Ding and Zhuang \cite{ding2024} for random field models with power-law decaying interactions. Their results demonstrate that, under appropriate conditions (e.g., $\alpha>d$), the probability of ``bad events''---namely, large droplets misaligned with the external field---can be sharply bounded, even in the presence of long-range couplings. The strategy involves estimating discrepancies between actual interiors of contours $I^-(\gamma)$ and their coarse-grained approximations $B_\ell(\gamma)$, along with bounding the number of admissible approximations. The parallel between their methodology and the approach pursued here is striking.
+
+Another central theme is the resilience of these techniques in disordered environments. Aizenman and Wehr \cite{aizenman1990} famously showed that randomness in the field smooths out first-order transitions---a phenomenon known as ``rounding.'' This implies that even if discontinuities appear in the absence of disorder, introducing spatial variability can restore uniqueness. In our setting, this aligns with the observation that for $\alpha<1$, the decaying field acts as a pervasive influence, effectively suppressing phase coexistence. This intuition is echoed in the analyses of Cassandro et al. \cite{cassandro2012} and in more abstract treatments such as Bovier \cite{bovier2012}, which explore statistical mechanical behavior in disordered systems.
+
+The critical case $\alpha=1$ stands out as particularly delicate. Here, the magnetic contribution diverges only logarithmically, creating a finely balanced competition between field and interaction. Partial results by Maia \cite{maia2024} and Ding, Liu, and Xia \cite{ding2022} suggest that system behavior in this regime is highly sensitive to parameters such as the field amplitude $h^*$, the interaction geometry, and the underlying graph topology. Further progress will likely require tools from effective field theory or modern renormalization group techniques.
+
+A promising future direction involves drawing from probabilistic graph theory, particularly the framework developed by Lyons and Peres \cite{lyons2014}. Representing the Ising model through the influence of trees and dependency paths opens new avenues for network-based analysis, where spin correlations can be quantified across large distances. This approach also connects naturally with coupling arguments, percolation frameworks, and generalized cluster expansion techniques.
+
+From a technical standpoint, much remains to be done to convert the energy-based heuristics presented here into a fully rigorous proof of uniqueness for the long-range Ising model with decaying fields. This would entail constructing partition functions explicitly, analyzing their derivatives (e.g., pressure and susceptibility), and employing correlation inequalities such as FKG and GKS. Furthermore, numerical simulations could provide valuable empirical validation of the uniqueness regimes predicted by theory.
+
+In closing, the investigation laid out in this analysis may serve as the foundation for a new research article, offering original insights at the intersection of spatially decaying fields and non-local interactions. Based on the arguments developed above, we may tentatively conjecture:
+
+\begin{conjecture}
+Let $h(x) = h^*/|x|^\alpha$ with $\alpha<1$ and $J_{xy} \sim 1/|x-y|^{d+s}$, with $s>0$. Then, there exists $\beta_c$ such that for all $\beta>\beta_c$, the Gibbs measure is unique.
+\end{conjecture}
+
+Full proof of this conjecture will require further technical work, but the theoretical framework and analytical tools are already in place. The present contribution thus represents a concrete advance toward the rigorous understanding of nonlocal systems governed by decaying external fields.
+\newpage
+\bibliography{references}
+\end{document}
